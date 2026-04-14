@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+
+    <!-- Bootstrap pra coisa os coiso -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+    <h2>Cadastro</h2>
+
+    <form method="POST" action="/cadastro">
+        <div class="form-group mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Senha</label>
+            <input type="password" name="password" class="form-control" placeholder="Digite sua senha" required>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" name="check" class="form-check-input">
+            <label class="form-check-label">Aceitar termos</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+
+</body>
+</html>
