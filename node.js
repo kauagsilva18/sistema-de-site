@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 
 // rota GET (abre o formulário)
 app.get('/cadastro', (req, res) => {
-    res.render('cadastro');
+    res.render('pessoa/cadastro');
 });
 
 // rota POST (recebe os dados)
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 //
 
 app.get('/entrar', (req, res) => {
-    res.render('entrar');
+    res.render('pessoa/entrar');
 });
 
 app.post('/entrar', (req, res) => {
