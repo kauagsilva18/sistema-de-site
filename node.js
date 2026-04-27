@@ -58,8 +58,8 @@ app.post('/cadastro', (req, res) => {
             console.error(err);
             return res.send('tudo errado');
         }
-
-        res.redirect('/loguin');
+        //se ao der
+        res.redirect("/")
     });
 });
     //o cara q envia dnovo soque produto
