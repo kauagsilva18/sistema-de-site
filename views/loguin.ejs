@@ -9,12 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<body class="bg-light">
 
-    <div class="container text-center">
+    <div class="container text-center mt-5">
         <div class="row justify-content-center">
 
-            <!-- Card Cadastro -->
+            <!-- Card Cadastro la -->
             <div class="col-md-4">
                 <div class="card shadow p-4 mb-4">
                     <h3 class="mb-3">Criar Conta</h3>
@@ -23,21 +23,43 @@
                 </div>
             </div>
 
-            <!-- Card Login -->
+            <!-- Card Produto-->
             <div class="col-md-4">
                 <div class="card shadow p-4 mb-4">
-                    <h3 class="mb-3">Entrar</h3>
-                    <p class="text-muted">Já tem uma conta?</p>
-                    <a href="/entrar" class="btn btn-primary w-100">Entrar</a>
+                    <h3 class="mb-3">Add Produto</h3>
+                    <p class="text-muted">Adicione um produto</p>
+                    <a href="/cadastroP" class="btn btn-secondary w-100">Adicionar</a>
                 </div>
             </div>
 
-            <!-- Card produtos maneiros -->
-            <div class="col-md-4">
-                <div class="card shadow p-4 mb-4">
-                    <h3 class="mb-3">add porduto</h3>
-                    <p class="text-muted">Adicione um porduto</p>
-                    <a href="/cadastroP" class="btn btn-secondary w-100">adicionar</a>
+        </div>
+
+        <!-- LISTAS -->
+        <div class="row mt-4 text-start">
+
+            <!-- Clientes -->
+            <div class="col-md-6">
+                <h4>Clientes</h4>
+                <div class="card p-3 shadow-sm">
+                    <% clientes.forEach(cliente => { %>
+                        <div class="border-bottom mb-2 pb-2">
+                            <strong><%= cliente.nome %></strong><br>
+                            <small><%= cliente.email %></small>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+
+            <!-- Produtos -->
+            <div class="col-md-6">
+                <h4>Produtos</h4>
+                <div class="card p-3 shadow-sm">
+                    <% produtos.forEach(produto => { %>
+                        <div class="border-bottom mb-2 pb-2">
+                            <strong><%= produto.nome %></strong><br>
+                            <small>R$ <%= produto.preco %></small>
+                        </div>
+                    <% }) %>
                 </div>
             </div>
 

@@ -1,54 +1,89 @@
 const express = require('express')
+const banco = require('mysql2/promise')
 const app = express()
 const porta = 3000;
 
-// middleware para pegar dados do formulário
+//criar conexão com banco de dados
+
+//loucura
+let db;
+
+async function conectar() {
+    db = await banco.createConnection({
+        host:'localhost',
+        user:'root',
+        password:'senai',
+        database:'trabalho'
+    });
+
+    console.log('Conectado ao banco');
+}
+
+conectar();
+
+// middleware pra coisar o formulário
 app.use(express.urlencoded({ extended: true }));
 
 // configurar EJS
 app.set('view engine', 'ejs');
 
-// rota GET (abre o formulário)
+// rota GET pra abrir la 
 app.get('/cadastro', (req, res) => {
     res.render('pessoa/cadastro');
 });
+    //buscando pelo clientes la no banco
+app.get('/', async (req, res) => {
+    try {
+        const [clientes] = await db.query('SELECT * FROM clientes');
+        const [produtos] = await db.query('SELECT * FROM produtos');
 
-// rota POST (recebe os dados)
+        res.render('loguin', {
+            clientes,
+            produtos
+        });
+    } catch (err) {
+        console.error(err);
+        res.send('tudo errado.');
+    }
+});
+//mais sql, aq o cara la q vai eniar as informacoes
 app.post('/cadastro', (req, res) => {
-    const { email, password } = req.body;
+    const { nome, email } = req.body;
 
-    console.log('Email:', email);
-    console.log('Senha:', password);
+    const sql = 'INSERT INTO clientes (nome, email) VALUES (?, ?)';
 
-    // aqui você poderia salvar no banco
+    //se der erro no brique
+    db.query(sql, [nome, email], (err) => {
+        if (err) {
+            console.error(err);
+            return res.send('tudo errado');
+        }
 
-    // redireciona para login
-    res.redirect('/');
+        res.redirect('/loguin');
+    });
+});
+    //o cara q envia dnovo soque produto
+app.post('/produtos', async (req, res) => {
+    const { nome, preco } = req.body;
+
+    try {
+        const sql = 'INSERT INTO produtos (nome, preco) VALUES (?, ?)';
+        await db.query(sql, [nome, preco]);
+
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        res.send('tudo errado');
+    }
 });
 
-app.get('/', (req, res) => {
-    res.render('loguin');
-});
-//
-
-app.get('/entrar', (req, res) => {
-    res.render('pessoa/entrar');
-});
-
-app.post('/entrar', (req, res) => {
-    const { email, password } = req.body;
-
-    console.log('entrar:', email, password);
-
-    res.send('Login realizado!');
-});
 //
 app.get('/cadastroP', (req, res) => {
-    res.render('produto/cadastroP'); // vai abrir cadastroP.ejs
+    res.render('produto/cadastroP');
 });
 
 
-// iniciar servidor
+// começa
 app.listen(porta, () => {
     console.log(`Servidor rodando em http://localhost:${porta}`);
 });
